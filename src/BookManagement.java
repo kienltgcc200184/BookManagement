@@ -23,6 +23,7 @@ public class BookManagement extends JFrame{
     private JTable tbBook;
     private JTextField txtAuthor;
     private JTextField txtId;
+    private JButton backToLoginButton;
     JFrame frontScreen;
 
     DefaultTableModel tbModel;
@@ -85,6 +86,17 @@ public class BookManagement extends JFrame{
                 fillToTable();
             }
         });
+        backToLoginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                back();
+            }
+        });
+    }
+
+    private void back() {
+        this.dispose();
+        frontScreen.setVisible(true);
     }
 
 

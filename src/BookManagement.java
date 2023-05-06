@@ -23,6 +23,7 @@ public class BookManagement extends JFrame{
     private JTable tbBook;
     private JTextField txtAuthor;
     private JTextField txtId;
+    JFrame frontScreen;
 
     DefaultTableModel tbModel;
     DefaultComboBoxModel cbModel = new DefaultComboBoxModel();
@@ -31,12 +32,14 @@ public class BookManagement extends JFrame{
 
     int currentRow = -1;
 
-    public BookManagement(String title){
+    public BookManagement(String title, Login aThis){
         //1. Initialize Setup
         super(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setSize(800,400);
+        frontScreen = aThis;
+        this.setLocationRelativeTo(null);
         //2. First load ComboBox, table
         initTable();
         loadCb();
@@ -274,9 +277,9 @@ public class BookManagement extends JFrame{
     private void showMess(String mess) {
         JOptionPane.showMessageDialog(this,mess);
     }
-    public static void main(String[] args) {
-        BookManagement b = new BookManagement("Book Management");
-        b.setVisible(true);
-        b.setLocationRelativeTo(null);
-    }
+//    public static void main(String[] args) {
+//        BookManagement b = new BookManagement("Book Management");
+//        b.setVisible(true);
+//        b.setLocationRelativeTo(null);
+//    }
 }

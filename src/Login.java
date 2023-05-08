@@ -39,7 +39,7 @@ public class Login extends JFrame{
         String name = txtUsr.getText();
         String pass = String.valueOf(txtPass.getPassword());
         BookManagement b  = null;
-        User admin = new User("BookManager","123");
+        User admin = new User("Admin","123");
         User checkUser = new User(name,pass);
 
         boolean login = false;

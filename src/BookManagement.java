@@ -2,6 +2,7 @@ import lib.XFile;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -28,6 +29,7 @@ public class BookManagement extends JFrame{
 
     DefaultTableModel tbModel;
     DefaultComboBoxModel cbModel = new DefaultComboBoxModel();
+
     ArrayList<Book> bookList;
     String filePath = "book.dat";
 
@@ -56,7 +58,6 @@ public class BookManagement extends JFrame{
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 addBook();
             }
         });
@@ -151,6 +152,7 @@ public class BookManagement extends JFrame{
         txtAuthor.setText(author);
         String year = b.getYear();
         txtYear.setText(year);
+
     }
 
     private void updateList() {
@@ -160,6 +162,8 @@ public class BookManagement extends JFrame{
         fillToTable();
         //3. save arraylist
         saveFile();
+        //4. reset form after updated
+        resetForm();
     }
 
     private void updateBook() {
@@ -177,6 +181,7 @@ public class BookManagement extends JFrame{
         b.setAuthor(author);
         String year = txtYear.getText();
         b.setYear(year);
+
 
     }
 

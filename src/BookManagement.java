@@ -2,7 +2,6 @@ import lib.XFile;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -25,6 +24,7 @@ public class BookManagement extends JFrame{
     private JTextField txtAuthor;
     private JTextField txtId;
     private JButton backToLoginButton;
+    private JButton resetButton;
     JFrame frontScreen;
 
     DefaultTableModel tbModel;
@@ -41,7 +41,6 @@ public class BookManagement extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setSize(800,400);
-        frontScreen = aThis;
         this.setLocationRelativeTo(null);
         //2. First load ComboBox, table
         initTable();
@@ -93,6 +92,22 @@ public class BookManagement extends JFrame{
                 back();
             }
         });
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reset();
+            }
+        });
+    }
+
+    private void reset() {
+        txtId.setText("");
+        txtId.setEnabled(true);
+        txtName.setText("");
+        cbCategory.setSelectedIndex(0);
+        txtDes.setText("");
+        txtAuthor.setText("");
+        txtYear.setText("");
     }
 
     private void back() {
@@ -142,6 +157,7 @@ public class BookManagement extends JFrame{
 
         String id = b.getID();
         txtId.setText(id);
+        txtId.setEnabled(false);
         String name = b.getName();
         txtName.setText(name);
         String category = b.getCategory();
@@ -170,7 +186,10 @@ public class BookManagement extends JFrame{
         Book b = bookList.get(currentRow);
 
         String id = txtId.getText();
-        b.setID(id);
+        if (!id.equals(b.getID())) {
+            showMess("Cannot update ID!");
+            return;
+        }
         String name = txtName.getText();
         b.setName(name);
         String category = cbCategory.getSelectedItem().toString();
@@ -180,6 +199,20 @@ public class BookManagement extends JFrame{
         String author = txtAuthor.getText();
         b.setAuthor(author);
         String year = txtYear.getText();
+        if (year.isEmpty()) {
+            showMess("You need to fill in the year!");
+            return;
+        }
+        try {
+            int yearNum = Integer.parseInt(year);
+            if (yearNum < 1900 || yearNum > Calendar.getInstance().get(Calendar.YEAR)) {
+                showMess("Invalid year! The year must be between 1900 and " + Calendar.getInstance().get(Calendar.YEAR));
+                return;
+            }
+        } catch (NumberFormatException e) {
+            showMess("Year must be a number!");
+            return;
+        }
         b.setYear(year);
 
 
@@ -206,7 +239,6 @@ public class BookManagement extends JFrame{
             showMess("Name must be between 1 and 30 characters long!");// Name length
             return;
         }
-//        String category = cbCategory.getSelectedItem().toString();
         String category = "";
         if (cbCategory.getSelectedIndex() == 0) {
             showMess("You need to select a category!");

@@ -59,9 +59,9 @@ public class Login extends JFrame{
         JOptionPane.showMessageDialog(this,mess);
     }
 
-    public static void main(String[] args) {
-        JFrame f = new Login("Login");
-        f.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        JFrame f = new Login("Login");
+//        f.setVisible(true);
+//    }
 }
 

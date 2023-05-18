@@ -143,7 +143,8 @@ public class BookManagement extends JFrame{
     }
 
     private void deleteBook() {
-        int re = JOptionPane.showConfirmDialog(this,""+"Do you want to delete this one?","Delete Warning",
+        int re = JOptionPane.showConfirmDialog(this,""+"Do you want to delete this one?",
+                "Delete Warning",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE);
         if(re==JOptionPane.YES_OPTION){
@@ -151,7 +152,6 @@ public class BookManagement extends JFrame{
             resetForm();
         }
     }
-
     private void showDetail(int currentRow) {
         Book b = bookList.get(currentRow);
 
@@ -168,9 +168,7 @@ public class BookManagement extends JFrame{
         txtAuthor.setText(author);
         String year = b.getYear();
         txtYear.setText(year);
-
     }
-
     private void updateList() {
         //1. update a book to arraylist with currentRow
         updateBook();
@@ -214,10 +212,7 @@ public class BookManagement extends JFrame{
             return;
         }
         b.setYear(year);
-
-
     }
-
     private void addBook() {
         //1. add new book to arraylist
         addTolist();
@@ -259,7 +254,6 @@ public class BookManagement extends JFrame{
             showMess("You need to fill in the year!!!");
             return;
         }
-
         try {
             int yearNum = Integer.parseInt(year);
             if (yearNum < 1900 || yearNum > Calendar.getInstance().get(Calendar.YEAR)) {
@@ -270,7 +264,6 @@ public class BookManagement extends JFrame{
             showMess("Year must be a number!");
             return;
         }
-
         if (id.isEmpty() || name.isEmpty() || category.isEmpty() || author.isEmpty() || des.isEmpty() || year.isEmpty()) {
             showMess("You need to fill in the information!!!");
             return;
@@ -278,9 +271,7 @@ public class BookManagement extends JFrame{
         Book b = new Book(id,name,category,des,author,year);
         bookList.add(b);
         idSet.add(id);
-
     }
-
     private void saveFile() {
         lib.XFile.writeObject(filePath, bookList);
     }
@@ -295,7 +286,6 @@ public class BookManagement extends JFrame{
         }
         return true;
     }
-
     private void fillToTable() {
         //clear old data in the table
         tbModel.setRowCount(0);
@@ -309,7 +299,6 @@ public class BookManagement extends JFrame{
             tbModel.addRow(row);
         }
     }
-
     private void loadCb() {
         String[] cateLst = {"Choose Category","Manga","Novel","TextBook"};
         for(String s:cateLst){
@@ -317,7 +306,6 @@ public class BookManagement extends JFrame{
         }
         cbCategory.setModel(cbModel);
     }
-
     private void initTable() {
         String[] columnNames ={"ID","Name","Category","Description","Author","Public Year"};
         tbModel = new DefaultTableModel(columnNames,0);
@@ -326,9 +314,4 @@ public class BookManagement extends JFrame{
     private void showMess(String mess) {
         JOptionPane.showMessageDialog(this,mess);
     }
-//    public static void main(String[] args) {
-//        BookManagement b = new BookManagement("Book Management");
-//        b.setVisible(true);
-//        b.setLocationRelativeTo(null);
-//    }
 }

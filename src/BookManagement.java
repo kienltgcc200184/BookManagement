@@ -26,13 +26,10 @@ public class BookManagement extends JFrame{
     private JButton backToLoginButton;
     private JButton resetButton;
     JFrame frontScreen;
-
     DefaultTableModel tbModel;
     DefaultComboBoxModel cbModel = new DefaultComboBoxModel();
-
     ArrayList<Book> bookList;
     String filePath = "book.dat";
-
     int currentRow = -1;
 
     public BookManagement(String title, Login aThis){
@@ -86,12 +83,6 @@ public class BookManagement extends JFrame{
                 fillToTable();
             }
         });
-        backToLoginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                back();
-            }
-        });
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,7 +90,6 @@ public class BookManagement extends JFrame{
             }
         });
     }
-
     private void reset() {
         txtId.setText("");
         txtId.setEnabled(true);
@@ -109,12 +99,6 @@ public class BookManagement extends JFrame{
         txtAuthor.setText("");
         txtYear.setText("");
     }
-
-    private void back() {
-        this.dispose();
-        frontScreen.setVisible(true);
-    }
-
 
     private void sortByName() {
         Collections.sort(bookList, new Comparator<Book>() {
@@ -133,14 +117,6 @@ public class BookManagement extends JFrame{
         //3. save arraylist
         saveFile();
     }
-    private void resetForm() {
-        txtId.setText("");
-        txtName.setText("");
-        cbCategory.setSelectedIndex(0);
-        txtDes.setText("");
-        txtAuthor.setText("");
-        txtYear.setText("");
-    }
 
     private void deleteBook() {
         int re = JOptionPane.showConfirmDialog(this,""+"Do you want to delete this one?",
@@ -149,7 +125,7 @@ public class BookManagement extends JFrame{
                 JOptionPane.WARNING_MESSAGE);
         if(re==JOptionPane.YES_OPTION){
             bookList.remove(currentRow);
-            resetForm();
+            reset();
         }
     }
     private void showDetail(int currentRow) {
@@ -176,18 +152,13 @@ public class BookManagement extends JFrame{
         fillToTable();
         //3. save arraylist
         saveFile();
-        //4. reset form after updated
-        resetForm();
     }
 
     private void updateBook() {
         Book b = bookList.get(currentRow);
 
         String id = txtId.getText();
-        if (!id.equals(b.getID())) {
-            showMess("Cannot update ID!");
-            return;
-        }
+        b.setID(id);
         String name = txtName.getText();
         b.setName(name);
         String category = cbCategory.getSelectedItem().toString();

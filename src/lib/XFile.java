@@ -8,7 +8,7 @@ public class XFile {
             FileOutputStream fos = new FileOutputStream(path);
             DataOutputStream dos = new DataOutputStream(fos);
             dos.writeInt(5);
-            dos.writeUTF("Kiên nè");
+            dos.writeUTF("Kien");
             dos.writeDouble(9.2);
             dos.close();
         } catch (FileNotFoundException e) {
